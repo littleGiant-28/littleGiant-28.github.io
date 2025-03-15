@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Monty Hall Problem - vAI&#39;s Blog</title><meta name="Description" content="Explaination of Monty hall probelm, probability derivation and simulation using Python"><meta property="og:url" content="http://localhost:1313/monty_hall/">
+  <meta property="og:site_name" content="vAI&#39;s Blog">
+  <meta property="og:title" content="Monty Hall Problem">
+  <meta property="og:description" content="Explaination of Monty hall probelm, probability derivation and simulation using Python">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-14T07:30:02-05:00">
+    <meta property="article:modified_time" content="2025-03-14T07:30:02-05:00">
+    <meta property="article:tag" content="Probability">
+    <meta property="article:tag" content="Simulation">
+    <meta property="article:tag" content="Python">
+    <meta property="og:image" content="http://localhost:1313/monty_hall/featured-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/monty_hall/featured-image.png">
+  <meta name="twitter:title" content="Monty Hall Problem">
+  <meta name="twitter:description" content="Explaination of Monty hall probelm, probability derivation and simulation using Python">
+<meta name="application-name" content="👋 Welcome to vAI&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="👋 Welcome to vAI&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/monty_hall/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Monty Hall Problem",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/monty_hall\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "http:\/\/localhost:1313\/monty_hall\/featured-image.png",
+                            "width":  700 ,
+                            "height":  420 
+                        }],"genre": "posts","keywords": "Probability, Simulation, Python","wordcount":  1532 ,
+        "url": "http:\/\/localhost:1313\/monty_hall\/","datePublished": "2025-03-14T07:30:02-05:00","dateModified": "2025-03-14T07:30:02-05:00","publisher": {
+            "@type": "Organization",
+            "name": "Vaibhav Thakor","logo": "http:\/\/localhost:1313\/android-chrome-512x512.png"},"author": {
+                "@type": "Person",
+                "name": "Vaibhav Thakor"
+            },"description": "Explaination of Monty hall probelm, probability derivation and simulation using Python"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="vAI&#39;s Blog">vAI&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="vAI&#39;s Blog">vAI&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Monty Hall Problem</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Vaibhav Thakor</a></span>&nbsp;<span class="post-category">included in <a href="/categories/probability/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Probability</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-14">2025-03-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1532 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/monty_hall/featured-image.png"
+        data-srcset="/monty_hall/featured-image.png, /monty_hall/featured-image.png 1.5x, /monty_hall/featured-image.png 2x"
+        data-sizes="auto"
+        alt="/monty_hall/featured-image.png"
+        title="Explaination of Monty hall probelm, probability derivation and simulation using Python" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-introduction">1. Introduction</a></li>
+    <li><a href="#2-probability-theory">2. Probability Theory</a></li>
+    <li><a href="#3-still-confused">3. Still Confused?</a></li>
+    <li><a href="#4-simulation">4. Simulation</a></li>
+    <li><a href="#5-end-remarks">5. End Remarks</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><br>
+On a fine friday evening, I got a text from my friend asking me this puzzle question.
+<blockquote>
+<p>Let&rsquo;s say you are in a game show and there are 3 doors. Behind 2 doors there are goats and behind the remaining one door there is a car. You do not know what&rsquo;s behind which door and are asked to choose one door. Next, the host will reveal the door behind which there is a goat. Then the host asks you whether you want to switch your choice with the other closed door or not. Question is, Should you switch or not?</p></blockquote>
+<p>At a first glance one would think that, does it even matter which door should you choose? There is one goat and one car behind the 2 doors and you have 50% chance of getting the car. But the real answer is that if you decide to switch the door your chance of getting the car shot upto <strong>66.67%</strong> here 🙀.</p>
+<p>And if this feels counter-intutive or confusing to you, don&rsquo;t worry you are not alone!</p>
+<p>This problem is famously known as <strong>Monty Hall Problem</strong> named after the host appeared in the American TV show game.</p>
+<p>In this post, I will try to explain the Monty Hall problem from the perspective of probability theory and we will also do the simulation using Python.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Along with the question stated earlier, there are few assumptions that need to hold true for this puzzle question.</p>
+<ul>
+<li>The host can only open the door that was not chosen by the player</li>
+<li>The host knows what&rsquo;s behind each door and he must open the door with the goat behind it for revealation</li>
+<li>The host has to offer the choice to player for switching the door after revealation</li>
+</ul>
+<p>If any of the above assumptions do not hold true, then the puzzle&rsquo;s answer will change drastically.</p>
+<hr>
+Now, coming back to the question of why it's not 50% of finding the car behind one of the 2 doors. 
+<p>If host had opened one of the doors randomly then the event of choosing the door and host opening the door would have been independent and probability would have been 50%. But host knows the location of car and he must always open the door with goat behind it. That&rsquo;s why both events are not independent.</p>
+<p>In other words,</p>
+<p>If the player chose the door with car then host is free to reveal either of the door as both doors have goats behind it. But if the player chose the door with goat then host must reveal the remaining door with the goat behind it.</p>
+<p>Now that we know its not 50% we will try to calculate what&rsquo;s the actual probability is.</p>
+<h2 id="2-probability-theory">2. Probability Theory</h2>
+<p>In this post, we will use Bayes&rsquo; theorem to calculate what is the probability of winning the car if you switch the door 🤓.</p>
+<p>Let&rsquo;s say $A$ is the event that car is behind the door chosen by the player. This event serves as our hypothesis in the bayes&rsquo; theorem. I know, this is not what we want to calculate but please be patient with me here 🙂.</p>
+<p>Let&rsquo;s say $B$ is the event of host revealing the door with goat behind. This event serves as our evidence in the bayes&rsquo; theorem.</p>
+<p>Next, let&rsquo;s write the bayes&rsquo; theorem.</p>
+<p>$$
+P(A | B) = \frac{ P(B|A)P(A) }{ P(B) }
+$$</p>
+<p>Let&rsquo;s understand and calculate each term.</p>
+<ul>
+<li>The RHS term $P(A | B)$ defines the probability of winning the car by not switching the door given that host reveals the door with goat behind it.</li>
+<li>On LHS side, term $P( B | A)$ is the probability of host revealing the door with goat given the car is behind the door chosen by the player. As host must always reveal the door with goat, the probability is $1$.</li>
+<li>Next, term $P(A)$ is the probability of winning the car by not switching the door. Here we are not conditioned on any other event. Hence, the probability of winning the car is $\frac{1}{3}$.</li>
+</ul>
+<p>To calculate $P(B)$ we have to further simplify it by conditioning it on event $A$.</p>
+<p>$$
+P(B) = P(B | A)P(A) + P( B | A&rsquo;)P(A&rsquo;)
+$$</p>
+<ul>
+<li>The term $P(A&rsquo;)$ is probability of car not being behind the door chosen by the player. Which can also be calculated as $1 - P(A) = \frac{2}{3}$</li>
+<li>The term $P( B | A&rsquo;)$ is the probability of host revealing the goat behind the door given the car is not behind the door chosen by the player. Which is also $1$ as host must always reveal the goat.</li>
+</ul>
+<p>Putting these together,</p>
+<p>$$
+P(B) = 1 \times \frac{1}{3} + 1 \times \frac{2}{3} = 1
+$$</p>
+<p>Putting everything together,</p>
+<p>$$
+P(A | B) = \frac{1 \times \frac{1}{3}}{1} = \frac{1}{3}
+$$</p>
+<p>We have derived the probability of winning the car with the player choosen door (not switching) given the host has revealed the door with goat behind it.</p>
+<p>However our original question was what is the probability of winning the car if we switch the door given the host has revealed the door with goat behind it. The probability of this event can be represented as $P(A&rsquo; | B)$ which is $1 - P(A | B) = 1 - \frac{1}{3} = \frac{2}{3}$.</p>
+<p>Hence, we have derived that if we switch the door after the host reveals the door with goat we can increase our chances of winning the car to approximately 66.67%</p>
+<h2 id="3-still-confused">3. Still Confused?</h2>
+<p>After the derivation if you still feel the solution is counter-intutive, it&rsquo;s alright. Even many mathematicians and physicist refused to accept this even with the proof. In the field of paradox, they call this kind of solutions veridical type paradox.</p>
+<p>I will try to explain the solution in very simple words now,</p>
+<blockquote>
+<p>Let&rsquo;s say you are blindly trusting me and going with the strategy of always switching. Now if you have initially chosen the door with car (which has the probability of $\frac{1}{3}$) you will fail when you do the switching. But if you have chosen the door with goat at start (which has the probability of $\frac{2}{3}$) you will win the car when you do switching because the other door with goat was already opened. Hence with switching you have $\frac{1}{3}$ chances of losing or in other words $\frac{2}{3}$ of winning the car.</p></blockquote>
+<p>Still not convinced? Let&rsquo;s do the simulation in Python next!</p>
+<h2 id="4-simulation">4. Simulation</h2>
+<p>We will try to simulate random behaviour of this game by using Python&rsquo;s <code>Random</code> module. With the comments, below code should be self-explanotary.</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Only 3 configuration of doors possible</span>
+</span></span><span class="line"><span class="cl"><span class="n">door_possibilties</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># we will call door no 0,1,2 instead of 1,2,3🙂</span>
+</span></span><span class="line"><span class="cl"><span class="n">door_nos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">play_game</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># first we will initialize door config for the current game by randomly selecting</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># one possibilties from the defined config</span>
+</span></span><span class="line"><span class="cl">    <span class="n">this_game_doors</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">door_possibilties</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Next, player will randomly select a door</span>
+</span></span><span class="line"><span class="cl">    <span class="n">player_selected_door</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">door_nos</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># host now must select the door with goat</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Let&#39;s first get remaining 2 door nos</span>
+</span></span><span class="line"><span class="cl">    <span class="n">remaining_door_nos</span> <span class="o">=</span> <span class="n">door_nos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">remaining_door_nos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">player_selected_door</span><span class="p">)</span>  <span class="c1"># removing player selected door</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># If the door chosen by player has car</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">this_game_doors</span><span class="p">[</span><span class="n">player_selected_door</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># then host can choose either of the remaining door as both have goats behind them</span>
+</span></span><span class="line"><span class="cl">        <span class="n">revealed_door_no</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">remaining_door_nos</span><span class="p">)</span>    <span class="c1"># host will randomly chose either of door</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># If the door chosen by player door has goat</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Host have to choose the remainig door with goat</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># let&#39;s call remaining doors a &amp; b for now</span>
+</span></span><span class="line"><span class="cl">        <span class="n">door_a</span><span class="p">,</span> <span class="n">door_b</span> <span class="o">=</span> <span class="n">remaining_door_nos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">remaining_door_nos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># We will find the door with goat from a &amp; b</span>
+</span></span><span class="line"><span class="cl">        <span class="n">revealed_door_no</span> <span class="o">=</span> <span class="n">door_a</span> <span class="k">if</span> <span class="n">this_game_doors</span><span class="p">[</span><span class="n">door_a</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;G&#39;</span> <span class="k">else</span> <span class="n">door_b</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1"># To calculate the probability of winning by switching, we will always switch now</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Out of remaining doors, we will remove the door no revealed by the host</span>
+</span></span><span class="line"><span class="cl">    <span class="n">remaining_door_nos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">revealed_door_no</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># List will have single door which will be chosen by player for switching</span>
+</span></span><span class="line"><span class="cl">    <span class="n">final_door_no</span> <span class="o">=</span> <span class="n">remaining_door_nos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># We return 1 for winning the car and 0 for losing, to keep track of success cases</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">this_game_doors</span><span class="p">[</span><span class="n">final_door_no</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">tries</span> <span class="o">=</span> <span class="mi">100000</span>
+</span></span><span class="line"><span class="cl"><span class="n">success</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tries</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">play_game</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">success</span> <span class="o">+=</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">prob</span> <span class="o">=</span> <span class="n">success</span><span class="o">/</span><span class="n">tries</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Probability: </span><span class="si">{</span><span class="n">prob</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>Copy the code, save in file and try to run it with python. You can also tweak the value of variable <code>tries</code> and see how it changes the probability.</p>
+<h2 id="5-end-remarks">5. End Remarks</h2>
+<p>This problem being very famous, I doubt you would get the chance to apply it in real life as no game would use the exact mechanism (it would be a disadvantage to host).</p>
+<p>The reason I wrote this blog is because I loved its paradoxical nature and how by using probability theory concepts you can always explain real-life phenomena.</p>
+<p>If you loved this problem and blog, there is also an extension to this problem.</p>
+<p>(If you guessed it correctly) The problem is extended to $N$ doors with host revealing $k$ doors where $0 \leq k \leq N-2$ as we have to leave atleast 2 doors closed. I would encourage you to derive the probability in same manner.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-03-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/monty_hall/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="http://localhost:1313/monty_hall/" data-title="Monty Hall Problem" data-via="https://x.com/littleGiant_28" data-hashtags="Probability,Simulation,Python"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="http://localhost:1313/monty_hall/" data-title="Monty Hall Problem"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/monty_hall/" data-hashtag="Probability"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/monty_hall/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on WhatsApp" data-sharer="whatsapp" data-url="http://localhost:1313/monty_hall/" data-title="Monty Hall Problem" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://localhost:1313/monty_hall/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=http%3a%2f%2flocalhost%3a1313%2fmonty_hall%2f&amp;text=Monty%20Hall%20Problem" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/probability/">Probability</a>,&nbsp;<a href="/tags/simulation/">Simulation</a>,&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Vaibhav Thakor</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>
