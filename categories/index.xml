@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Categories - Category - vAI&#39;s Blog</title>
-        <link>http://localhost:1313/categories/</link>
+        <link>https://littlegiant-28.github.io/categories/</link>
         <description>Categories - Category - vAI&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>vaibhavthakor2@gmail.com (Vaibhav Thakor)</managingEditor>
-            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 14 Mar 2025 07:30:02 -0500</lastBuildDate><atom:link href="http://localhost:1313/categories/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 14 Mar 2025 07:30:02 -0500</lastBuildDate><atom:link href="https://littlegiant-28.github.io/categories/" rel="self" type="application/rss+xml" /><item>
     <title>Probability</title>
-    <link>http://localhost:1313/categories/probability/</link>
+    <link>https://littlegiant-28.github.io/categories/probability/</link>
     <pubDate>Fri, 14 Mar 2025 07:30:02 -0500</pubDate>
     <author>Vaibhav Thakor</author>
-    <guid>http://localhost:1313/categories/probability/</guid>
+    <guid>https://littlegiant-28.github.io/categories/probability/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

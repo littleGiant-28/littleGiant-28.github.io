@@ -1,31 +1,31 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - vAI&#39;s Blog</title>
-        <link>http://localhost:1313/tags/</link>
+        <link>https://littlegiant-28.github.io/tags/</link>
         <description>Tags - Tag - vAI&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>vaibhavthakor2@gmail.com (Vaibhav Thakor)</managingEditor>
-            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 14 Mar 2025 07:30:02 -0500</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 14 Mar 2025 07:30:02 -0500</lastBuildDate><atom:link href="https://littlegiant-28.github.io/tags/" rel="self" type="application/rss+xml" /><item>
     <title>Probability</title>
-    <link>http://localhost:1313/tags/probability/</link>
+    <link>https://littlegiant-28.github.io/tags/probability/</link>
     <pubDate>Fri, 14 Mar 2025 07:30:02 -0500</pubDate>
     <author>Vaibhav Thakor</author>
-    <guid>http://localhost:1313/tags/probability/</guid>
+    <guid>https://littlegiant-28.github.io/tags/probability/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Python</title>
-    <link>http://localhost:1313/tags/python/</link>
+    <link>https://littlegiant-28.github.io/tags/python/</link>
     <pubDate>Fri, 14 Mar 2025 07:30:02 -0500</pubDate>
     <author>Vaibhav Thakor</author>
-    <guid>http://localhost:1313/tags/python/</guid>
+    <guid>https://littlegiant-28.github.io/tags/python/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Simulation</title>
-    <link>http://localhost:1313/tags/simulation/</link>
+    <link>https://littlegiant-28.github.io/tags/simulation/</link>
     <pubDate>Fri, 14 Mar 2025 07:30:02 -0500</pubDate>
     <author>Vaibhav Thakor</author>
-    <guid>http://localhost:1313/tags/simulation/</guid>
+    <guid>https://littlegiant-28.github.io/tags/simulation/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

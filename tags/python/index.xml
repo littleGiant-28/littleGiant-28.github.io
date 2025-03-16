@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Python - Tag - vAI&#39;s Blog</title>
-        <link>http://localhost:1313/tags/python/</link>
+        <link>https://littlegiant-28.github.io/tags/python/</link>
         <description>Python - Tag - vAI&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>vaibhavthakor2@gmail.com (Vaibhav Thakor)</managingEditor>
-            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 14 Mar 2025 07:30:02 -0500</lastBuildDate><atom:link href="http://localhost:1313/tags/python/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 14 Mar 2025 07:30:02 -0500</lastBuildDate><atom:link href="https://littlegiant-28.github.io/tags/python/" rel="self" type="application/rss+xml" /><item>
     <title>Monty Hall Problem</title>
-    <link>http://localhost:1313/monty_hall/</link>
+    <link>https://littlegiant-28.github.io/monty_hall/</link>
     <pubDate>Fri, 14 Mar 2025 07:30:02 -0500</pubDate>
     <author>Vaibhav Thakor</author>
-    <guid>http://localhost:1313/monty_hall/</guid>
+    <guid>https://littlegiant-28.github.io/monty_hall/</guid>
     <description><![CDATA[Let&rsquo;s say you are in a game show and there are 3 doors. Behind 2 doors there are goats and behind the remaining one door there is a car. You do not know what&rsquo;s behind which door and are asked to choose one door. Next, the host will reveal the door behind which there is a goat. Then the host asks you whether you want to switch your choice with the other closed door or not. Question is, Should you switch or not?]]></description>
 </item>
 </channel>
