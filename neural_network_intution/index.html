@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Understanding Neural Networks from Geometric Perspective - vAI&#39;s Blog</title><meta name="Description" content="Developing intutive understanding of how neural network works using basic concepts of Linear Algebra, Visualizing the same in practice by training a model on binary classification"><meta property="og:url" content="https://littlegiant-28.github.io/neural_network_intution/">
+  <meta property="og:site_name" content="vAI&#39;s Blog">
+  <meta property="og:title" content="Understanding Neural Networks from Geometric Perspective">
+  <meta property="og:description" content="Developing intutive understanding of how neural network works using basic concepts of Linear Algebra, Visualizing the same in practice by training a model on binary classification">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-21T10:38:08-05:00">
+    <meta property="article:modified_time" content="2025-03-21T10:38:08-05:00">
+    <meta property="article:tag" content="Neural Network">
+    <meta property="article:tag" content="Deep Learning">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Linear Algebra">
+    <meta property="og:image" content="https://littlegiant-28.github.io/neural_network_intution/featured-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://littlegiant-28.github.io/neural_network_intution/featured-image.png">
+  <meta name="twitter:title" content="Understanding Neural Networks from Geometric Perspective">
+  <meta name="twitter:description" content="Developing intutive understanding of how neural network works using basic concepts of Linear Algebra, Visualizing the same in practice by training a model on binary classification">
+<meta name="application-name" content="👋 Welcome to vAI&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="👋 Welcome to vAI&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://littlegiant-28.github.io/neural_network_intution/" /><link rel="prev" href="https://littlegiant-28.github.io/monty_hall/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Understanding Neural Networks from Geometric Perspective",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/littlegiant-28.github.io\/neural_network_intution\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/littlegiant-28.github.io\/neural_network_intution\/featured-image.png",
+                            "width":  1280 ,
+                            "height":  502 
+                        }],"genre": "posts","keywords": "Neural Network, Deep Learning, Python, Linear Algebra","wordcount":  2310 ,
+        "url": "https:\/\/littlegiant-28.github.io\/neural_network_intution\/","datePublished": "2025-03-21T10:38:08-05:00","dateModified": "2025-03-21T10:38:08-05:00","publisher": {
+            "@type": "Organization",
+            "name": "Vaibhav Thakor","logo": "https:\/\/littlegiant-28.github.io\/android-chrome-512x512.png"},"author": {
+                "@type": "Person",
+                "name": "Vaibhav Thakor"
+            },"description": "Developing intutive understanding of how neural network works using basic concepts of Linear Algebra, Visualizing the same in practice by training a model on binary classification"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="vAI&#39;s Blog">vAI&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="vAI&#39;s Blog">vAI&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Understanding Neural Networks from Geometric Perspective</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Vaibhav Thakor</a></span>&nbsp;<span class="post-category">included in <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-21">2025-03-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2310 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/neural_network_intution/featured-image.png"
+        data-srcset="/neural_network_intution/featured-image.png, /neural_network_intution/featured-image.png 1.5x, /neural_network_intution/featured-image.png 2x"
+        data-sizes="auto"
+        alt="/neural_network_intution/featured-image.png"
+        title="Developing intutive understanding of how neural network works using basic concepts of Linear Algebra, Visualizing the same in practice by training a model on binary classification" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#single-neuron">Single Neuron</a>
+      <ul>
+        <li><a href="#definition">Definition</a></li>
+        <li><a href="#geometric-meaning">Geometric Meaning</a></li>
+        <li><a href="#role-of-bias">Role of Bias</a></li>
+        <li><a href="#visualizing-boundary-line">Visualizing Boundary line</a></li>
+        <li><a href="#role-of-activation-function">Role of Activation Function</a></li>
+      </ul>
+    </li>
+    <li><a href="#neural-network">Neural Network</a>
+      <ul>
+        <li><a href="#toy-example">Toy Example</a></li>
+        <li><a href="#visualizing-hidden-layers-boundaries">Visualizing hidden layers&rsquo; boundaries</a></li>
+        <li><a href="#visualizing-output-layers-boundary">Visualizing output layer&rsquo;s boundary</a></li>
+        <li><a href="#visualizing-boundary-during-training">Visualizing boundary during training</a></li>
+      </ul>
+    </li>
+    <li><a href="#key-takeaways">Key Takeaways</a></li>
+    <li><a href="#going-further">Going Further</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><br>
+<p>If you’ve worked with neural networks, you’re likely familiar with how they function—at least the forward pass (if not, don’t worry; I’ll summarize it in the next section). At their core, neural networks rely on matrix multiplication, addition, and element-wise operations. However, developing an intuitive understanding of how they recognize patterns is just as important.</p>
+<p>For very deep neural networks, understanding their inner workings can be challenging. However, with shallow and low-dimensional networks, we can still analyze their behavior to some extent. In this blog, I will explain how neural networks perform pattern recognition from a geometric perspective. By visualizing how neural network weights interact with input data, we can gain insights into their decision-making process. I will illustrate this using various visualizations in coordinate space, primarily in 2D.</p>
+<p>Our focus will be on understanding how neural networks work rather than how they are trained. Topics such as backpropagation and optimization algorithms will NOT be covered here.</p>
+<blockquote>
+<p>The code used here for experiments &amp; generating visualizations can be found <a href="https://github.com/littleGiant-28/neural-network-geometric" target="_blank" rel="noopener noreffer ">here</a> <i class="fab fa-github"></i>.</p></blockquote>
+<h2 id="single-neuron">Single Neuron</h2>
+<h3 id="definition">Definition</h3>
+<figure><a class="lightgallery" href="/neural_network_intution/single_neuron.png" title="Single Neuron function" data-thumbnail="/neural_network_intution/single_neuron.png" data-sub-html="<h2>Fig 1. Single Neuron taking inputs and outputting weighted summation with activation function applied over them</h2><p>Single Neuron function</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/single_neuron.png"
+            data-srcset="/neural_network_intution/single_neuron.png, /neural_network_intution/single_neuron.png 1.5x, /neural_network_intution/single_neuron.png 2x"
+            data-sizes="auto"
+            alt="Single Neuron function" width="300" height="260" />
+    </a><figcaption class="image-caption">Fig 1. Single Neuron taking inputs and outputting weighted summation with activation function applied over them</figcaption>
+    </figure>
+<p>Let&rsquo;s say each sample in input data consist of $N$ features: $X={x_1, x_2, x_3, &hellip;, x_N}$. Simple put, $X$ contains $N$ numerical values, which could represent anything from pixel intensities in an image to parameters like height, weight in tabular data. The output of the single neuron is defined as follows:</p>
+<p>$$
+o = \sigma (x_1 w_1 + x_2 w_2 + x3 w_3 + &hellip; + x_n w_n + b_1)
+$$</p>
+<p>Here the $W={w_1, w_2, w_3, &hellip;, w_n}$ represents weight associated with each input element $x$ and $\sigma$ is an activation function. The term $b_1$ is the bias(more on activation function and bias later). The neuron&rsquo;s activation is determined based on whether its output is positive or negative—though the actual value also plays a role.</p>
+<h3 id="geometric-meaning">Geometric Meaning</h3>
+<p>If closely examine the equation and recall your lienar algebra (or even physics) classes, you will notice that it resemebles the to dot product equation. Let&rsquo;s first formally define everything in the vector form.</p>
+<p>Let $X = [x_1, x_2, x_3, &hellip;, x_N]$ be the input data vector and $W=[w_1, w_2, w_3, &hellip;, w_N]$ be the weight vector. Then the output of the single neuron is defined as:</p>
+<p>$$
+o = \sigma( X \cdot W)
+$$</p>
+<p>Let&rsquo;s temporarily ignore the activation function and focus on the dot product. Geometrically, the dot product measures the angle between two vectors—in other words, how similar they are. If both vectors are normalized, a dot product value of 1 means they point in the same direction, a value of 0 means they are perpendicular, and a negative value indicates they point in opposite directions.</p>
+<figure><a class="lightgallery" href="/neural_network_intution/weight_vector_boundary.png" title="Weight vector and boundary Visualization" data-thumbnail="/neural_network_intution/weight_vector_boundary.png" data-sub-html="<h2>Fig 2. Example weight vector with perpendicular boundary line. The vector $X_1$ outputs positive value being same side of the boundary as weight vector, while the vector $X_2$ outputs negative being on the opposite side of the boundary.</h2><p>Weight vector and boundary Visualization</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/weight_vector_boundary.png"
+            data-srcset="/neural_network_intution/weight_vector_boundary.png, /neural_network_intution/weight_vector_boundary.png 1.5x, /neural_network_intution/weight_vector_boundary.png 2x"
+            data-sizes="auto"
+            alt="Weight vector and boundary Visualization" width="400" height="400" />
+    </a><figcaption class="image-caption">Fig 2. Example weight vector with perpendicular boundary line. The vector $X_1$ outputs positive value being same side of the boundary as weight vector, while the vector $X_2$ outputs negative being on the opposite side of the boundary.</figcaption>
+    </figure>
+<p>This means that if the input data vector forms an angle of less than $90\degree$  with the weight vector, the output will be positive. This is a crucial observation because a line perpendicular to the weight vector represents the set of vectors where the dot product output is zero. This perpendicular line acts as a <strong>decision boundary</strong> for the neuron. If a vector lies on the same side of this boundary as the weight vector, the output will be positive; otherwise, it will be negative. The output value also depends on how close the input data vector is to the weight vector. By adjusting the weight vector, you can modify the slope of the boundary line.</p>
+<h3 id="role-of-bias">Role of Bias</h3>
+<p>You may have noticed that the boundary line passes through the origin and remains fixed there. While you can change its slope, you cannot shift it in space. To introduce this flexibility, we can translate the weight vector by adding a scalar value. If you guessed correctly, this scalar value is the bias $b_1$ ​that we introduced earlier in the equation. With this, we now have the flexibility to adjust both the slope ($m$) and the intercept ($c$) of the boundary line.</p>
+<h3 id="visualizing-boundary-line">Visualizing Boundary line</h3>
+<figure><a class="lightgallery" href="/neural_network_intution/weight_boundary_viz_gif_high.gif" title="Change in boudnary visualization with change in weight vector and bias" data-thumbnail="/neural_network_intution/weight_boundary_viz_gif_high.gif" data-sub-html="<h2>Fig 3. A gif showing how the decision boudnary gets changed when weight vector and bias values are changed in 2D plane. The green line represents the weight vector in 2D plane and purple line along with the region represents the area where if input data vector lies than the output will be positive, activating the neuron (Screen recorded using GeoGebra)</h2><p>Change in boudnary visualization with change in weight vector and bias</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/weight_boundary_viz_gif_high.gif"
+            data-srcset="/neural_network_intution/weight_boundary_viz_gif_high.gif, /neural_network_intution/weight_boundary_viz_gif_high.gif 1.5x, /neural_network_intution/weight_boundary_viz_gif_high.gif 2x"
+            data-sizes="auto"
+            alt="Change in boudnary visualization with change in weight vector and bias" width="960" height="599" />
+    </a><figcaption class="image-caption">Fig 3. A gif showing how the decision boudnary gets changed when weight vector and bias values are changed in 2D plane. The green line represents the weight vector in 2D plane and purple line along with the region represents the area where if input data vector lies than the output will be positive, activating the neuron (Screen recorded using <a href="https://www.geogebra.org/" target="_blank" rel="noopener noreffer ">GeoGebra</a>)</figcaption>
+    </figure>
+<p>For a two-dimensional example, we can visualize how the boundary line shifts by adjusting the weight vector and bias, plotting it in Cartesian space.</p>
+<h3 id="role-of-activation-function">Role of Activation Function</h3>
+<figure><a class="lightgallery" href="/neural_network_intution/linearly_seperable_cluster.png" title="/neural_network_intution/linearly_seperable_cluster.png" data-thumbnail="/neural_network_intution/linearly_seperable_cluster.png" data-sub-html="<h2>Fig 4. An example of linearly separable dataset. a. Shows two sets of points color coded by blue and green b. Shows two sets of points divided by the line</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/linearly_seperable_cluster.png"
+            data-srcset="/neural_network_intution/linearly_seperable_cluster.png, /neural_network_intution/linearly_seperable_cluster.png 1.5x, /neural_network_intution/linearly_seperable_cluster.png 2x"
+            data-sizes="auto"
+            alt="/neural_network_intution/linearly_seperable_cluster.png" width="1000" height="500" />
+    </a><figcaption class="image-caption">Fig 4. An example of linearly separable dataset. a. Shows two sets of points color coded by blue and green b. Shows two sets of points divided by the line</figcaption>
+    </figure>
+<p>If I showed you the above plot and asked you to separate the two color-coded data points, you could easily do so by drawing a straight line that divides them. In Euclidean geometry, such data is called <strong>linearly separable</strong> if at least one line exists that can separate the two sets of points.</p>
+<p>In machine learning terms, this represents a classification problem in $2D$ space. The neuron learns the $2D$ weight vector $W$ and bias $B$, which together define a boundary line that separates the two sets of points. (Note that how the neuron learns to do this is beyond the scope of this post.)</p>
+<figure><a class="lightgallery" href="/neural_network_intution/non_linearly_seperable_cluster.png" title="/neural_network_intution/non_linearly_seperable_cluster.png" data-thumbnail="/neural_network_intution/non_linearly_seperable_cluster.png" data-sub-html="<h2>Fig 5. An example of linearly not separable dataset. a. Shows two sets of points color coded by blue and green b. Shows two sets of points divided by a parabolic cuve</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/non_linearly_seperable_cluster.png"
+            data-srcset="/neural_network_intution/non_linearly_seperable_cluster.png, /neural_network_intution/non_linearly_seperable_cluster.png 1.5x, /neural_network_intution/non_linearly_seperable_cluster.png 2x"
+            data-sizes="auto"
+            alt="/neural_network_intution/non_linearly_seperable_cluster.png" width="1000" height="500" />
+    </a><figcaption class="image-caption">Fig 5. An example of linearly not separable dataset. a. Shows two sets of points color coded by blue and green b. Shows two sets of points divided by a parabolic cuve</figcaption>
+    </figure>
+<p>Now, if I showed you the same plot and asked you to separate the points, you might struggle to do so with a straight line. Instead, you would likely draw a curved boundary, as shown in the second image. These points are not linearly separable, which is why we need to introduce some form of non-linearity into the dot product equation. This is where activation functions come in.</p>
+<p>An activation function is any non-linear function applied to the dot product. While there are certain mathematical properties that make activation functions more effective for training, their primary role is to introduce non-linearity.</p>
+<p>If you&rsquo;ve studied other machine learning algorithms, you may notice that using the <strong>sigmoid function</strong> as an activation function makes a single neuron functionally equivalent to <strong>logistic regression</strong>.</p>
+<p>So far, we have mostly understood a neuron&rsquo;s function from the perspective of a $2D$ input space. However, we can generalize this concept to an $N$-dimensional space as well.</p>
+<p>In higher dimensions, the equation represents the distance of a point $P$ from a hyperplane, which is defined by the directional vector $\vec{W}$ and the offset $b$.  You can find the derivation for this using linear algebra <a href="" rel="">here</a>.</p>
+<h2 id="neural-network">Neural Network</h2>
+<p>A single neuron alone is limited to performing linear classification. Even with an activation function, its flexibility remains constrained. However, when multiple neurons are stacked within a single layer, the model can learn multiple decision boundaries for the same input data. Adding another layer further enhances learning, enabling the network to capture more complex patterns and relationships.</p>
+<h3 id="toy-example">Toy Example</h3>
+<figure><a class="lightgallery" href="/neural_network_intution/dataset.png" title="Visualization of linearly non seperable 2D toy dataset." data-thumbnail="/neural_network_intution/dataset.png" data-sub-html="<h2>Fig 6. Visualization of linearly non seperable 2$D$ toy dataset.</h2><p>Visualization of linearly non seperable 2D toy dataset.</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/dataset.png"
+            data-srcset="/neural_network_intution/dataset.png, /neural_network_intution/dataset.png 1.5x, /neural_network_intution/dataset.png 2x"
+            data-sizes="auto"
+            alt="Visualization of linearly non seperable 2D toy dataset." width="400" height="300" />
+    </a><figcaption class="image-caption">Fig 6. Visualization of linearly non seperable 2$D$ toy dataset.</figcaption>
+    </figure>
+<p>To understand neural networks, we will consider a simple toy example of 2D classification, as shown in the figure above. The data is clearly not linearly separable and is more complex than the previous example. To tackle this, we will use a neural network with a single hidden layer containing 8 neurons, followed by an output layer with 2 neurons.</p>
+<figure><a class="lightgallery" href="/neural_network_intution/single_hidden_nn.png" title="Neural network architecture" data-thumbnail="/neural_network_intution/single_hidden_nn.png" data-sub-html="<h2>Fig 7. Visual representation of the architecture of neural network used for the example (Rendered using NN-SVG)</h2><p>Neural network architecture</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/single_hidden_nn.png"
+            data-srcset="/neural_network_intution/single_hidden_nn.png, /neural_network_intution/single_hidden_nn.png 1.5x, /neural_network_intution/single_hidden_nn.png 2x"
+            data-sizes="auto"
+            alt="Neural network architecture" width="411" height="300" />
+    </a><figcaption class="image-caption">Fig 7. Visual representation of the architecture of neural network used for the example (Rendered using <a href="https://alexlenail.me/NN-SVG/" target="_blank" rel="noopener noreffer ">NN-SVG</a>)</figcaption>
+    </figure>
+<blockquote>
+<p>You could use single neuron for the output if using <code>torch.nn.BCEWithLogitsLoss</code>, but I am keeping it more generalized by using <code>torch.nn.CrossEntropyLoss</code>. Additionally, I am using <strong>Relu activation</strong>, <strong>Adam optimizer</strong> wuth a <strong>fixed learning rate of 0.01</strong> and <strong>100 epochs</strong> for training.</p></blockquote>
+<h3 id="visualizing-hidden-layers-boundaries">Visualizing hidden layers&rsquo; boundaries</h3>
+<p>We wil define the hidden layer&rsquo;s weight matrix $W$ of size $[8, 2]$ as a collection of vectors $[w_0, w_1, &hellip;, w_7]$ each havinga  dimensionality $2$. In other words, each $w_i$ is a row vector of weight matrix $W$.</p>
+<p>Let&rsquo;s visualize the <strong>decision boundaries</strong> created by each of these weight vectors without, both before and after applying the activation function, once training is complete.</p>
+<figure><a class="lightgallery" href="/neural_network_intution/first_layer_without_activation.png" title="Hidden Layer Weight visualization" data-thumbnail="/neural_network_intution/first_layer_without_activation.png" data-sub-html="<h2>Fig 8. Visualization of boundary created by each weight vector without activation function applied. The red arrow represents normalized weight vector indicating the direction of weight vector.</h2><p>Hidden Layer Weight visualization</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/first_layer_without_activation.png"
+            data-srcset="/neural_network_intution/first_layer_without_activation.png, /neural_network_intution/first_layer_without_activation.png 1.5x, /neural_network_intution/first_layer_without_activation.png 2x"
+            data-sizes="auto"
+            alt="Hidden Layer Weight visualization" width="500" height="666" />
+    </a><figcaption class="image-caption">Fig 8. Visualization of boundary created by each weight vector without activation function applied. The red arrow represents normalized weight vector indicating the direction of weight vector.</figcaption>
+    </figure>
+<figure><a class="lightgallery" href="/neural_network_intution/first_layer_with_activation.png" title="/neural_network_intution/first_layer_with_activation.png" data-thumbnail="/neural_network_intution/first_layer_with_activation.png" data-sub-html="<h2>Fig 9. Visualization of boundary created by each weight vector with activation function applied. The red arrow represents normalized weight vector indicating the direction of weight vector. As ReLU activation function is applied the outputs beyond one side of boundaries are zeros.</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/first_layer_with_activation.png"
+            data-srcset="/neural_network_intution/first_layer_with_activation.png, /neural_network_intution/first_layer_with_activation.png 1.5x, /neural_network_intution/first_layer_with_activation.png 2x"
+            data-sizes="auto"
+            alt="/neural_network_intution/first_layer_with_activation.png" width="500" height="666" />
+    </a><figcaption class="image-caption">Fig 9. Visualization of boundary created by each weight vector with activation function applied. The red arrow represents normalized weight vector indicating the direction of weight vector. As ReLU activation function is applied the outputs beyond one side of boundaries are zeros.</figcaption>
+    </figure>
+<blockquote>
+<p>If you&rsquo;re wondering how these boundary visualizations are created, let me explain. We generate a 2$D$ <strong>grid of points</strong> (xy coordinates), where each point represents an input to the neural network. These points are then fed into the network, and we store the hidden layer&rsquo;s output. The results are then displayed as a heatmap, allowing us to analyze how each neuron responds to all possible input points, not just those in the dataset.</p></blockquote>
+<p>As expected from the mathematical derivation, the boundary is clearly <strong>perpendicular</strong> to the weight vector. Although we have multiple boundaries here, they are <strong>independent</strong> at this stage and do not contribute to learning <strong>non-linear</strong> patterns. However, the next layer can utilize these linear boundaries to construct more complex decision regions.</p>
+<h3 id="visualizing-output-layers-boundary">Visualizing output layer&rsquo;s boundary</h3>
+<p>Now, let&rsquo;s visualize the <strong>output layer</strong> of this neural network.</p>
+<figure><a class="lightgallery" href="/neural_network_intution/second_layer_output.png" title="/neural_network_intution/second_layer_output.png" data-thumbnail="/neural_network_intution/second_layer_output.png" data-sub-html="<h2>Fig 10. Boundary visualization from the output layer of the network. Read region indicates high value output by first neuron and blue region indicates high value output by second neuron. The purple line is boundary where both first and second neuron outputs same values.</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/second_layer_output.png"
+            data-srcset="/neural_network_intution/second_layer_output.png, /neural_network_intution/second_layer_output.png 1.5x, /neural_network_intution/second_layer_output.png 2x"
+            data-sizes="auto"
+            alt="/neural_network_intution/second_layer_output.png" width="600" height="450" />
+    </a><figcaption class="image-caption">Fig 10. Boundary visualization from the output layer of the network. Read region indicates high value output by first neuron and blue region indicates high value output by second neuron. The purple line is boundary where both first and second neuron outputs same values.</figcaption>
+    </figure>
+<p>Classification is determined by comparing the <strong>output values</strong> predicted by the first and second neurons in the output layer. If the first neuron&rsquo;s score is higher than the second neuron&rsquo;s, the input is classified as Class 1; otherwise, it is classified as Class 2.</p>
+<p>The <strong>purple boundary</strong> represents the decision boundary where both neurons output the same value. Additionally, you can observe how the <strong>red</strong> and <strong>blue</strong> colors fade as they approach the boundary, indicating that the output neuron values are decreasing. This suggests that the network is less confident about the classification near the boundary.</p>
+<hr>
+<blockquote>
+<p>There’s another interesting observation about the boundary line—can you spot it?</p></blockquote>
+<p>The boundary line is indeed non-linear now, adapting to the distribution of both classes. However, it is piecewise linear—meaning that this non-linear boundary is composed of multiple linear segments with different slopes, connected together.</p>
+<p>This happens because the output layer utilizes the boundary lines (shown in Figures 7 &amp; 8) created by the hidden layer&rsquo;s neurons to form the final decision boundary. Keep in mind that the output layer also has its own weights and biases, so the final boundary line is essentially a weighted summation of the previous boundary lines.</p>
+<p>This gives us an intuitive understanding that while solving a classification problem, each hidden layer neuron is learning a specific type of boundary. As we go deeper, these boundaries are combined to form more complex decision boundaries.</p>
+<p>These intermediate boundaries may or may not have a direct interpretation with respect to the input data points in the same space. However, by the time we reach the output layer, we can clearly visualize the final complex boundary that effectively separates the input data points.</p>
+<p>This is also why we typically use the outputs from the hidden layer just before the output layer as an <strong>embedding</strong> or <strong>representation vector</strong> in networks like <strong>ResNet</strong>. This layer contains the most useful information for defining decision boundaries that effectively separate data points into different classes.</p>
+<blockquote>
+<p>Remember, we were able to analyze this because our dataset was 2$D$, but in real-world scenarios, datasets are rarely this simple. For example, an RGB image with a resolution of 64×64 pixels would have a dimensionality of <strong>64×64×3 = 12,288</strong>, making it extremely challenging to visualize decision boundaries in the same way.</p></blockquote>
+<blockquote>
+<p>However, the <strong>same concept applies in higher dimensions</strong>, where the boundary line is replaced by a <strong>hyperplane</strong> that separates data points in a multi-dimensional space.</p></blockquote>
+<h3 id="visualizing-boundary-during-training">Visualizing boundary during training</h3>
+<p>Another interesting visualization is observing how the boundary line from the output layer evolves as the neural network progresses through training. This allows us to see how the network gradually adjusts its decision boundary, refining it step by step to better separate the data points.</p>
+<figure><a class="lightgallery" href="/neural_network_intution/training_visualization_compressed.gif" title="/neural_network_intution/training_visualization_compressed.gif" data-thumbnail="/neural_network_intution/training_visualization_compressed.gif" data-sub-html="<h2>Fig 11. Visualization of boundary line adaptation as training progresses.</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/neural_network_intution/training_visualization_compressed.gif"
+            data-srcset="/neural_network_intution/training_visualization_compressed.gif, /neural_network_intution/training_visualization_compressed.gif 1.5x, /neural_network_intution/training_visualization_compressed.gif 2x"
+            data-sizes="auto"
+            alt="/neural_network_intution/training_visualization_compressed.gif" width="600" height="400" />
+    </a><figcaption class="image-caption">Fig 11. Visualization of boundary line adaptation as training progresses.</figcaption>
+    </figure>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li>The weight matrix of each hidden layer in a neural network can be broken down into multiple weight vectors, each corresponding to a neuron.</li>
+<li>Each weight vector represents a boundary hyperplane, where the output is positive if the input data lies on the same side as the weight vector and negative otherwise. The activation function helps transform this linear boundary into a non-linear one.</li>
+<li>The hidden layer takes the boundary hyperplanes from the previous layer and combines them to form even more complex hyperplanes.</li>
+<li>The output layer constructs the final hyperplane in the D-dimensional input space, effectively separating data points based on their classes.</li>
+</ul>
+<h2 id="going-further">Going Further</h2>
+<ul>
+<li>We only used the ReLU activation function here. Can you think about what would happen if we had used sigmoid or tanh instead? How would it affect the boundary line in this example?</li>
+<li>What if we added one more hidden layer? Would it help in learning a better boundary? How would it impact the network’s ability to separate the data?</li>
+</ul>
+<blockquote>
+<p>Feel free to reproduce my experiments using the code <a href="https://github.com/littleGiant-28/neural-network-geometric" target="_blank" rel="noopener noreffer ">here</a> <i class="fab fa-github"></i> or tweak it to generate new visualizations for the above questions.</p></blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-03-21</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/neural_network_intution/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-title="Understanding Neural Networks from Geometric Perspective" data-via="https://x.com/littleGiant_28" data-hashtags="Neural Network,Deep Learning,Python,Linear Algebra"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-title="Understanding Neural Networks from Geometric Perspective"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-hashtag="Neural Network"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="https://littlegiant-28.github.io/neural_network_intution/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-title="Understanding Neural Networks from Geometric Perspective" data-web><i class="fab fa-whatsapp fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-title="Understanding Neural Networks from Geometric Perspective"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="https://littlegiant-28.github.io/neural_network_intution/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-title="Understanding Neural Networks from Geometric Perspective"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@14.9.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-title="Understanding Neural Networks from Geometric Perspective"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://littlegiant-28.github.io/neural_network_intution/" data-title="Understanding Neural Networks from Geometric Perspective" data-description="Developing intutive understanding of how neural network works using basic concepts of Linear Algebra, Visualizing the same in practice by training a model on binary classification"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2flittlegiant-28.github.io%2fneural_network_intution%2f&amp;text=Understanding%20Neural%20Networks%20from%20Geometric%20Perspective" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/neural-network/">Neural Network</a>,&nbsp;<a href="/tags/deep-learning/">Deep Learning</a>,&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/linear-algebra/">Linear Algebra</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/monty_hall/" class="prev" rel="prev" title="Monty Hall Problem"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Monty Hall Problem</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Vaibhav Thakor</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOOJHJec4CoGK","darkTheme":"dark","emitMetadata":"0","inputPosition":"top","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"littleGiant-28/littleGiant-28.github.io","repoId":"R_kgDOOJHJeQ"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js"></script><script>
+            var doNotTrack = false;
+            if ( false ) {
+                var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+                var doNotTrack = (dnt == "1" || dnt == "yes");
+            }
+            if (!doNotTrack) {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-MTJ7Y384BM');
+            }
+        </script><script src="https://www.googletagmanager.com/gtag/js?id=G-MTJ7Y384BM" async></script></body>
+</html>
