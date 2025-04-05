@@ -4,10 +4,10 @@
         <link>https://littlegiant-28.github.io/categories/deep-learning/</link>
         <description>Deep Learning - Category - vAI&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>vaibhavthakor2@gmail.com (Vaibhav Thakor)</managingEditor>
-            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 21 Mar 2025 10:38:08 -0500</lastBuildDate><atom:link href="https://littlegiant-28.github.io/categories/deep-learning/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>vaibhavthakor2@gmail.com (Vaibhav Thakor)</webMaster><lastBuildDate>Fri, 04 Apr 2025 10:38:08 -0500</lastBuildDate><atom:link href="https://littlegiant-28.github.io/categories/deep-learning/" rel="self" type="application/rss+xml" /><item>
     <title>Understanding Neural Networks from Geometric Perspective</title>
     <link>https://littlegiant-28.github.io/neural_network_intution/</link>
-    <pubDate>Fri, 21 Mar 2025 10:38:08 -0500</pubDate>
+    <pubDate>Fri, 04 Apr 2025 10:38:08 -0500</pubDate>
     <author>Vaibhav Thakor</author>
     <guid>https://littlegiant-28.github.io/neural_network_intution/</guid>
     <description><![CDATA[For very deep neural networks, understanding their inner workings can be challenging. However, with shallow and low-dimensional networks, we can still analyze their behavior to some extent. In this blog, I will explain how neural networks perform pattern recognition from a geometric perspective. By visualizing how neural network weights interact with input data, we can gain insights into their decision-making process. I will illustrate this using various visualizations in coordinate space, primarily in 2D.]]></description>
